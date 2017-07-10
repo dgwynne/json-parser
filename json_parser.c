@@ -106,7 +106,7 @@ static int	json_parser_push_array(struct json_parser *,
 static int	json_parser_pop_array(struct json_parser *,
 		    const struct json_parser_settings *);
 
-static int	json_parser_uchar(u_char);
+static int	json_parser_uchar(unsigned char);
 
 struct json_parser *
 json_parser_new(void *ctx)
@@ -222,7 +222,7 @@ json_parser_pop_array(struct json_parser *jp,
 }
 
 static int
-json_parser_uchar(u_char digit)
+json_parser_uchar(unsigned char digit)
 {
 	if (digit >= '0' && digit <= '9')
 		return (digit - '0');
@@ -235,7 +235,7 @@ json_parser_uchar(u_char digit)
 }
 
 static int
-json_parser_echar(u_char digit)
+json_parser_echar(unsigned char digit)
 {
 	switch (digit) {
 	case 'b':
@@ -264,7 +264,7 @@ json_parser_echar(u_char digit)
 static int
 json_parser_on_number(struct json_parser *jp,
     const struct json_parser_settings *settings,
-    const u_char *mark, const u_char *data)
+    const unsigned char *mark, const unsigned char *data)
 {
 	if (mark == data)
 		return (0);
@@ -288,7 +288,7 @@ json_parser_next(struct json_parser *jp)
 static int
 json_parser_number_end(struct json_parser *jp,
     const struct json_parser_settings *settings,
-    const u_char *mark, const u_char *data)
+    const unsigned char *mark, const unsigned char *data)
 {
 	int top;
 
@@ -339,10 +339,10 @@ json_parser_exec(struct json_parser *jp,
     const struct json_parser_settings *settings,
     const void *buf, size_t len)
 {
-	const u_char *data = buf;
-	const u_char *end;
-	const u_char *mark = NULL;
-	u_char uchar;
+	const unsigned char *data = buf;
+	const unsigned char *end;
+	const unsigned char *mark = NULL;
+	unsigned char uchar;
 	int rv;
 
 	if (jp->jp_state == s_dead)
@@ -930,12 +930,12 @@ json_parser_exec(struct json_parser *jp,
 		break;
 	}
 
-	return (data - (u_char *)buf);
+	return (data - (unsigned char *)buf);
 
 die:
 	jp->jp_state = s_dead;
 onerr:
-	return (data - (u_char *)buf);
+	return (data - (unsigned char *)buf);
 }
 
 int
